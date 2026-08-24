@@ -76,6 +76,36 @@ class AuthController {
         }
     }
 
+    static getMe = async (req: Request, res: Response) => {
+        try {
+            const { id, email } = req.user;
+
+            res.status(200).json(
+                {
+                    "message": "User data fetched successfully",
+                    "user": {
+                        "id": id,
+                        "email": email
+                    }
+                }
+            )
+
+        } catch (error) {
+            res.status(500).json({ message: "Failed to fetch user data" })
+        }
+    }
+
+    static logoutUser = async (req: Request, res: Response) => {
+        try {
+            res.clearCookie("token");
+
+            res.status(200).json({ "message": "User logged out successfully" })
+
+        } catch (error) {
+            res.status(500).json({ message: 'Failed to logout User' })
+        }
+    }
+
 }
 
 export default AuthController;
