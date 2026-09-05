@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import healthRoute from './routes/health.routes';
 import { errorHandler } from "./middleware/error.middleware";
 import authRoute from "./routes/auth.routes";
+import projectRoute from "./routes/project.routes"
 
 const app = express();
 app.use(cors());
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/health', healthRoute);
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/projects", projectRoute)
 
 app.use((req: Request, res: Response) => {
     res.status(404).json({
