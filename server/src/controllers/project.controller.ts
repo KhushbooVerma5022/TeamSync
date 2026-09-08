@@ -51,8 +51,9 @@ class ProjectController {
     static getProjectById = async (req: Request, res: Response) => {
         try {
             const { id } = req.params;
+            const { id: userId } = req.user;
 
-            const project = await Project.findById(id);
+            const project = await Project.findOne({ _id: id, $or: [{owner: userId}, {'members.user': userId}] });
 
             if (!project) {
                 return res.status(404).json({ message: 'Project not found' });
