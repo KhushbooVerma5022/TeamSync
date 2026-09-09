@@ -7,5 +7,6 @@ const router = Router();
 router.post('/',authMiddleware,ProjectController.createProject);
 router.get('/',authMiddleware,ProjectController.getProjects);
 router.get('/:id',authMiddleware,ProjectController.getProjectById);
+router.patch('/:id',authMiddleware,ProjectController.updateProject);
 
 export default router;
