@@ -88,6 +88,23 @@ class ProjectController {
         }
     }
 
+    static deleteProject = async (req: Request, res: Response) => {
+        try {
+            const { id } = req.params;
+            const { id: userId } = req.user;
+
+            const project = await Project.findOneAndDelete({ _id: id, owner: userId });
+            
+            if (!project) {
+                return res.status(404).json({ message: 'Project not found or you are not the owner' });
+            }
+
+            res.status(200).json({ message: "Project deleted successfully", project });
+        } catch (error) {
+            res.status(500).json({ message: 'Failed to delete project' });
+        }
+    }
+
 }
 
 export default ProjectController;
